@@ -1,79 +1,105 @@
-using System;
- 
- using System.Collections.Generic;
- 
- using System.Linq;
- 
- using System.Text;
- 
- using UnityEngine;
- 
- using System.Collections;
- 
- using MainGame.core;
- 
- using UnityEngine.EventSystems;
- 
- namespace MainGame{
- public class actionmove :action{
- public void init (self, entity, target);
-       Action.init(self, 1, true, "move");
-       this.isKeyboardControl = true;
-       this.currentInput = Vector3();
-       this.entity = entity;
-       this.target = target;
- }})
- public void SwitchToKeyboard(){
-   this.isKeyboardControl = true;
- }
- public void SwitchToMouse(){
-   this.isKeyboardControl = false;
- }
- public void OnStartRunning(){
-   if(this.target != null  ){ 
-     self:SwitchToMouse();
-     this.entity.mover:SetGoal(this.target);
-   }
-   this.entity.mover:ResetSpeed();
- }
- public void Update(){
-   var actionResult = true;
-   if(GameController.inputService:LeftStickYIsPressed()  ||   GameController.inputService:LeftStickXIsPressed()  ){ 
-     this.currentInput = GameController.inputService:LeftStickValues();
-     this.currentInput:RotateAroundY(GameController.camera.angle) ;
-     this.entity.mover:SetInput(this.currentInput);
-     actionResult = false;
-   }
-   if(this.isKeyboardControl  ){ 
-     if(Input.GetMouseButtonDown(1)  ){ 
-       this.entity.mover:SetGoal(Input.RaycastMouseOnTerrain());
-       self:SwitchToMouse();
-       actionResult = false;
-     }
-     
-     if(GameController.inputService:GetMouseButton(1)  &&  this.currentInput:Length() == 0  ){ 
-       self:SwitchToMouse();
-       actionResult = false;
-     }
-   }
-   
-   if(not this.isKeyboardControl  ){ 
-     if(GameController.inputService:GetMouseButton(1)  ){         
-       this.entity.mover:SetGoal(Input.RaycastTargetEntity()  ||  Input.RaycastMouseOnTerrain());
-       actionResult = false;
-     }    
-     
-     if(not this.entity.mover:IsHaveGoal()  ||  GameController.inputService:LeftStickYIsPressed()  ||  GameController.inputService:LeftStickXIsPressed()  ){ 
-       self:SwitchToKeyboard();
-     }
-     
-     if(this.entity.mover:IsHaveGoal()  ){ 
-       actionResult = false;
-     }
-   }
-   return actionResult;
- }
- public void OnStopRunning(){
-   this.entity.mover:Stop();
- }
- }}
+using UnityEngine;
+namespace MainGame
+{
+    public class actionmove : action
+    {
+        private GameObject gameObject;
+        private GameObject target;
+
+        private bool isKeyboardControl = true;
+        private Vector3 currentInput;
+
+        public actionmove(GameObject gameObject, GameObject target = null)
+        {
+            base.init(1, true, "move");
+            this.gameObject = gameObject;
+            this.target = target;
+            isKeyboardControl = true;
+        }
+
+        public void SwitchToKeyboard()
+        {
+            isKeyboardControl = true;
+        }
+        public void SwitchToMouse()
+        {
+            isKeyboardControl = false;
+        }
+
+        public override void OnStartRunning()
+        {
+            if (target != null)
+            {
+                SwitchToMouse();
+                if (target != null)
+                {
+                    gameObject.GetComponent<mover>().SetGoal(target);
+                }
+                else
+                {
+                    if (targetVec != Vector3.zero)
+                    {
+                        gameObject.GetComponent<mover>().SetGoal(targetVec);
+                    }
+                }
+            }
+            GetComponent<mover>().ResetSpeed();
+        }
+
+        public override bool Update()
+        {
+            bool actionResult = true;
+            if (GameController.inputService.LeftStickYIsPressed() || GameController.inputService.LeftStickXIsPressed())
+            {
+                currentInput = GameController.inputService.LeftStickValues();
+                currentInput.RotateAroundY(GameController.camera.angle); //FIXME: rotate around y not implemented in vector
+                gameObject.GetComponent<mover>().SetInput(currentInput);
+                actionResult = false;
+            }
+            if (isKeyboardControl)
+            {
+                if (input.GetMouseButtonDown(1))
+                {
+                    gameObject.GetComponent<mover>().SetGoal(InputUtils.RaycastMouseOnTerrain());
+                    SwitchToMouse();
+                    actionResult = false;
+                }
+                if (GameController.inputService.GetMouseButton(1) && currentInput.magnitude == 0)
+                {
+                    SwitchToMouse();
+                    actionResult = false;
+                }
+            }
+            if (!isKeyboardControl)
+            {
+                if (GameController.inputService.GetMouseButton(1))
+                {
+                    GameObject targetEntity = InputUtils.RaycastTargetEntity();
+                    if (targetEntity != null)
+                    {
+                        gameObject.GetComponent<mover>().SetGoal(targetEntity);
+                    }
+                    else
+                    {
+                        gameObject.GetComponent<mover>().SetGoal(InputUtils.RaycastMouseOnTerrain());
+                    }
+                    actionResult = false;
+                }
+                if (!gameObject.GetComponent<mover>().IsHaveGoal() || GameController.inputService.LeftStickYIsPressed() || GameController.inputService.LeftStickXIsPressed())
+                {
+                    SwitchToKeyboard();
+                }
+                if (gameObject.GetComponent<mover>().IsHaveGoal())
+                {
+                    actionResult = false;
+                }
+            }
+            return actionResult;
+        }
+
+        public override void OnStopRunning()
+        {
+            gameObject.GetComponent<mover>().Stop();
+        }
+    }
+}
