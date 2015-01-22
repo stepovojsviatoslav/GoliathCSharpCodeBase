@@ -1,0 +1,419 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{44125235-1212-4D72-A274-5F360AFE9837}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CSharpCodeBase</RootNamespace>
+    <AssemblyName>CSharpCodeBase</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Assembly-CSharp">
+      <HintPath>..\..\..\Library\ScriptAssemblies\Assembly-CSharp.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UnityEngine">
+      <HintPath>C:\Program Files\Unity 5.0.0b18\Editor\Data\Managed\UnityEngine.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>C:\Program Files\Unity 5.0.0b18\Editor\Data\UnityExtensions\Unity\GUISystem\UnityEngine.UI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="aiactions\ai_attackenemy.cs" />
+    <Compile Include="aiactions\ai_avoidance.cs" />
+    <Compile Include="aiactions\ai_findparent.cs" />
+    <Compile Include="aiactions\ai_following.cs" />
+    <Compile Include="aiactions\ai_followparent.cs" />
+    <Compile Include="aiactions\ai_fooding.cs" />
+    <Compile Include="aiactions\ai_gettarget.cs" />
+    <Compile Include="aiactions\ai_gettargetclass.cs" />
+    <Compile Include="aiactions\ai_interactenemy.cs" />
+    <Compile Include="aiactions\ai_movetoenemy.cs" />
+    <Compile Include="aiactions\ai_runawayfromtarget.cs" />
+    <Compile Include="aiactions\ai_scream.cs" />
+    <Compile Include="aiactions\ai_selectenemy.cs" />
+    <Compile Include="aiactions\ai_selectfood.cs" />
+    <Compile Include="aiactions\ai_selectweapon.cs" />
+    <Compile Include="aiactions\ai_timeout.cs" />
+    <Compile Include="aiactions\attackenemies.cs" />
+    <Compile Include="aiactions\child.cs" />
+    <Compile Include="aiactions\returnhome.cs" />
+    <Compile Include="aiactions\scanenemies.cs" />
+    <Compile Include="aiactions\scared.cs" />
+    <Compile Include="aiactions\scaredclass.cs" />
+    <Compile Include="aiactions\sleep.cs" />
+    <Compile Include="aiactions\snowtroll\ai_following.cs" />
+    <Compile Include="aiactions\snowtroll\ai_invite_to_hunt.cs" />
+    <Compile Include="aiactions\snowtroll\ai_target_search.cs" />
+    <Compile Include="aiactions\targetzone.cs" />
+    <Compile Include="aiactions\wander.cs" />
+    <Compile Include="components\animations\mecanim.cs" />
+    <Compile Include="components\builder\buildercomponent.cs" />
+    <Compile Include="components\character\aiworldmap.cs" />
+    <Compile Include="components\character\baseweapon.cs" />
+    <Compile Include="components\character\characterdamagereceiver.cs" />
+    <Compile Include="components\character\combat.cs" />
+    <Compile Include="components\character\damageprocessor.cs" />
+    <Compile Include="components\character\damagereceiver.cs" />
+    <Compile Include="components\character\damagevisualizer.cs" />
+    <Compile Include="components\character\enemysupportcomponent.cs" />
+    <Compile Include="components\character\gamepadmover.cs" />
+    <Compile Include="components\character\grenademodevisualizer.cs" />
+    <Compile Include="components\character\health.cs" />
+    <Compile Include="components\character\mover.cs" />
+    <Compile Include="components\character\playercontroller.cs" />
+    <Compile Include="components\character\possibleactions.cs" />
+    <Compile Include="components\character\relationship.cs" />
+    <Compile Include="components\character\resist.cs" />
+    <Compile Include="components\character\starvation.cs" />
+    <Compile Include="components\character\vision.cs" />
+    <Compile Include="components\character\weaponcontainer.cs" />
+    <Compile Include="components\character\weaponsequencer.cs" />
+    <Compile Include="components\component.cs" />
+    <Compile Include="components\controlsystem\action.cs" />
+    <Compile Include="components\controlsystem\actionmachine.cs" />
+    <Compile Include="components\controlsystem\actions\actionattackmouse.cs" />
+    <Compile Include="components\controlsystem\actions\actionblock.cs" />
+    <Compile Include="components\controlsystem\actions\actioninteract.cs" />
+    <Compile Include="components\controlsystem\actions\actionmove.cs" />
+    <Compile Include="components\controlsystem\actions\actiontake.cs" />
+    <Compile Include="components\controlsystem\enemyactions\actionbehaviour.cs" />
+    <Compile Include="components\controlsystem\enemyactions\actiondashpunch.cs" />
+    <Compile Include="components\controlsystem\enemyactions\actionhit.cs" />
+    <Compile Include="components\controlsystem\enemyactions\actionpush.cs" />
+    <Compile Include="components\controlsystem\playercontroller.cs" />
+    <Compile Include="components\controlsystem\spells\DeathClickSpell.cs" />
+    <Compile Include="components\controlsystem\spells\IronSpellJump.cs" />
+    <Compile Include="components\controlsystem\spells\IronSpellRotate.cs" />
+    <Compile Include="components\control\guicontrol.cs" />
+    <Compile Include="components\inventory\grid.cs" />
+    <Compile Include="components\inventory\inventory.cs" />
+    <Compile Include="components\inventory\item.cs" />
+    <Compile Include="components\inventory\recipelist.cs" />
+    <Compile Include="components\services\config.cs" />
+    <Compile Include="components\services\daytime.cs" />
+    <Compile Include="components\services\events.cs" />
+    <Compile Include="components\services\inputservice.cs" />
+    <Compile Include="components\services\scenelight.cs" />
+    <Compile Include="components\services\spells.cs" />
+    <Compile Include="components\services\timerservice.cs" />
+    <Compile Include="components\thing\dropmanagercomponent.cs" />
+    <Compile Include="components\thing\fragilethingcomponent.cs" />
+    <Compile Include="components\thing\statemanagercomponent.cs" />
+    <Compile Include="components\thing\thingdamagereceiver.cs" />
+    <Compile Include="components\thing\thingregenerationcomponent.cs" />
+    <Compile Include="components\thing\timemanagercomponent.cs" />
+    <Compile Include="components\thing\treebehaviorcomponent.cs" />
+    <Compile Include="core\database.cs" />
+    <Compile Include="core\EntityFactory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="core\gameloop.cs" />
+    <Compile Include="core\objectmap.cs" />
+    <Compile Include="core\objectpool.cs" />
+    <Compile Include="core\pooler.cs" />
+    <Compile Include="core\worldgenerator.cs" />
+    <Compile Include="dialogs\data\d01.cs" />
+    <Compile Include="dialogs\dialoguesystem.cs" />
+    <Compile Include="entities\builderentity\builderentity.cs" />
+    <Compile Include="entities\camera\camera.cs" />
+    <Compile Include="entities\constructions\bench.cs" />
+    <Compile Include="entities\constructions\chest.cs" />
+    <Compile Include="entities\drop\dropmanager.cs" />
+    <Compile Include="entities\drop\droppable.cs" />
+    <Compile Include="entities\enemies\caterpillar.cs" />
+    <Compile Include="entities\enemies\dront.cs" />
+    <Compile Include="entities\enemies\enemy.cs" />
+    <Compile Include="entities\enemies\horner.cs" />
+    <Compile Include="entities\enemies\snowtroll.cs" />
+    <Compile Include="entities\enemies\spider.cs" />
+    <Compile Include="entities\items\grenade.cs" />
+    <Compile Include="entities\items\medicinechest.cs" />
+    <Compile Include="entities\items\repairkit.cs" />
+    <Compile Include="entities\mockup\mockupentity.cs" />
+    <Compile Include="entities\nature\basenature.cs" />
+    <Compile Include="entities\player\character.cs" />
+    <Compile Include="entities\player\player.cs" />
+    <Compile Include="entities\ui\maininterface.cs" />
+    <Compile Include="entities\ui\uibenchcontroller.cs" />
+    <Compile Include="entities\ui\uichestcontroller.cs" />
+    <Compile Include="entities\ui\uicontroller.cs" />
+    <Compile Include="entities\ui\uigadgetcontroller.cs" />
+    <Compile Include="entities\ui\uislotscontroller.cs" />
+    <Compile Include="entities\ui\uiweaponcontroller.cs" />
+    <Compile Include="entities\weapon\bullet.cs" />
+    <Compile Include="entities\weapon\grenade.cs" />
+    <Compile Include="GameController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="globals.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="tiles.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="unity\entity.cs" />
+    <Compile Include="unity\unityentity.cs" />
+    <Compile Include="utils\ailib\aidebugnode.cs" />
+    <Compile Include="utils\ailib\aiifnode.cs" />
+    <Compile Include="utils\ailib\ainode.cs" />
+    <Compile Include="utils\ailib\aiselector.cs" />
+    <Compile Include="utils\ailib\aisequence.cs" />
+    <Compile Include="utils\ailib\aitree.cs" />
+    <Compile Include="utils\ailib\import.cs" />
+    <Compile Include="utils\bhlib\action.cs" />
+    <Compile Include="utils\bhlib\andconditional.cs" />
+    <Compile Include="utils\bhlib\conditional.cs" />
+    <Compile Include="utils\bhlib\import.cs" />
+    <Compile Include="utils\bhlib\invertor.cs" />
+    <Compile Include="utils\bhlib\orconditional.cs" />
+    <Compile Include="utils\bhlib\selector.cs" />
+    <Compile Include="utils\bhlib\sequence.cs" />
+    <Compile Include="utils\bhlib\statefulselector.cs" />
+    <Compile Include="utils\bhlib\statefulsequence.cs" />
+    <Compile Include="utils\console.cs" />
+    <Compile Include="utils\hittest.cs" />
+    <Compile Include="utils\hump\class.cs" />
+    <Compile Include="utils\hump\list.cs" />
+    <Compile Include="utils\hump\stack.cs" />
+    <Compile Include="utils\hump\timeoutlist.cs" />
+    <Compile Include="utils\hump\timer.cs" />
+    <Compile Include="utils\hump\vector2.cs" />
+    <Compile Include="utils\hump\vector3.cs" />
+    <Compile Include="utils\import.cs" />
+    <Compile Include="utils\inifile.cs" />
+    <Compile Include="utils\inspect.cs" />
+    <Compile Include="utils\math.cs" />
+    <Compile Include="utils\string\stringutils.cs" />
+    <Compile Include="utils\tables.cs" />
+    <Compile Include="utils\time.cs" />
+    <Compile Include="utils\translates\bundleutils.cs" />
+    <Compile Include="utils\translates\camerautils.cs" />
+    <Compile Include="utils\translates\fileutils.cs" />
+    <Compile Include="utils\translates\import.cs" />
+    <Compile Include="utils\translates\input.cs" />
+    <Compile Include="utils\translates\loa.cs" />
+    <Compile Include="utils\translates\mecanimutils.cs" />
+    <Compile Include="utils\translates\raycastutils.cs" />
+    <Compile Include="utils\translates\rigidbodyutils.cs" />
+    <Compile Include="utils\translates\rotationutils.cs" />
+    <Compile Include="utils\translates\shaderutils.cs" />
+    <Compile Include="utils\translates\transformutils.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="obj\Debug\TempPE\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="aiactions\ai_attackenemy.lua" />
+    <None Include="aiactions\ai_avoidance.lua" />
+    <None Include="aiactions\ai_findparent.lua" />
+    <None Include="aiactions\ai_following.lua" />
+    <None Include="aiactions\ai_followparent.lua" />
+    <None Include="aiactions\ai_fooding.lua" />
+    <None Include="aiactions\ai_gettarget.lua" />
+    <None Include="aiactions\ai_gettargetclass.lua" />
+    <None Include="aiactions\ai_interactenemy.lua" />
+    <None Include="aiactions\ai_movetoenemy.lua" />
+    <None Include="aiactions\ai_runawayfromtarget.lua" />
+    <None Include="aiactions\ai_scream.lua" />
+    <None Include="aiactions\ai_selectenemy.lua" />
+    <None Include="aiactions\ai_selectfood.lua" />
+    <None Include="aiactions\ai_selectweapon.lua" />
+    <None Include="aiactions\ai_timeout.lua" />
+    <None Include="aiactions\attackenemies.lua" />
+    <None Include="aiactions\child.lua" />
+    <None Include="aiactions\returnhome.lua" />
+    <None Include="aiactions\scanenemies.lua" />
+    <None Include="aiactions\scared.lua" />
+    <None Include="aiactions\scaredclass.lua" />
+    <None Include="aiactions\sleep.lua" />
+    <None Include="aiactions\snowtroll\ai_following.lua" />
+    <None Include="aiactions\snowtroll\ai_invite_to_hunt.lua" />
+    <None Include="aiactions\snowtroll\ai_target_search.lua" />
+    <None Include="aiactions\targetzone.lua" />
+    <None Include="aiactions\wander.lua" />
+    <None Include="components\animations\mecanim.lua" />
+    <None Include="components\builder\buildercomponent.lua" />
+    <None Include="components\character\aiworldmap.lua" />
+    <None Include="components\character\baseweapon.lua" />
+    <None Include="components\character\characterdamagereceiver.lua" />
+    <None Include="components\character\combat.lua" />
+    <None Include="components\character\damageprocessor.lua" />
+    <None Include="components\character\damagereceiver.lua" />
+    <None Include="components\character\damagevisualizer.lua" />
+    <None Include="components\character\enemysupportcomponent.lua" />
+    <None Include="components\character\gamepadmover.lua" />
+    <None Include="components\character\grenademodevisualizer.lua" />
+    <None Include="components\character\health.lua" />
+    <None Include="components\character\mover.lua" />
+    <None Include="components\character\playercontroller.lua" />
+    <None Include="components\character\possibleactions.lua" />
+    <None Include="components\character\relationship.lua" />
+    <None Include="components\character\resist.lua" />
+    <None Include="components\character\starvation.lua" />
+    <None Include="components\character\vision.lua" />
+    <None Include="components\character\weaponcontainer.lua" />
+    <None Include="components\character\weaponsequencer.lua" />
+    <None Include="components\component.lua" />
+    <None Include="components\controlsystem\action.lua" />
+    <None Include="components\controlsystem\actionmachine.lua" />
+    <None Include="components\controlsystem\actions\actionattackmouse.lua" />
+    <None Include="components\controlsystem\actions\actionblock.lua" />
+    <None Include="components\controlsystem\actions\actioninteract.lua" />
+    <None Include="components\controlsystem\actions\actionmove.lua" />
+    <None Include="components\controlsystem\actions\actiontake.lua" />
+    <None Include="components\controlsystem\enemyactions\actionbehaviour.lua" />
+    <None Include="components\controlsystem\enemyactions\actiondashpunch.lua" />
+    <None Include="components\controlsystem\enemyactions\actionhit.lua" />
+    <None Include="components\controlsystem\enemyactions\actionpush.lua" />
+    <None Include="components\controlsystem\playercontroller.lua" />
+    <None Include="components\controlsystem\spells\DeathClickSpell.lua" />
+    <None Include="components\controlsystem\spells\IronSpellJump.lua" />
+    <None Include="components\controlsystem\spells\IronSpellRotate.lua" />
+    <None Include="components\control\guicontrol.lua" />
+    <None Include="components\inventory\grid.lua" />
+    <None Include="components\inventory\inventory.lua" />
+    <None Include="components\inventory\item.lua" />
+    <None Include="components\inventory\recipelist.lua" />
+    <None Include="components\services\config.lua" />
+    <None Include="components\services\daytime.lua" />
+    <None Include="components\services\events.lua" />
+    <None Include="components\services\inputservice.lua" />
+    <None Include="components\services\scenelight.lua" />
+    <None Include="components\services\spells.lua" />
+    <None Include="components\services\timerservice.lua" />
+    <None Include="components\thing\dropmanagercomponent.lua" />
+    <None Include="components\thing\fragilethingcomponent.lua" />
+    <None Include="components\thing\statemanagercomponent.lua" />
+    <None Include="components\thing\thingdamagereceiver.lua" />
+    <None Include="components\thing\thingregenerationcomponent.lua" />
+    <None Include="components\thing\timemanagercomponent.lua" />
+    <None Include="components\thing\treebehaviorcomponent.lua" />
+    <None Include="core\database.lua" />
+    <None Include="core\entityfactory.lua" />
+    <None Include="core\gameloop.lua" />
+    <None Include="core\objectmap.lua" />
+    <None Include="core\objectpool.lua" />
+    <None Include="core\pooler.lua" />
+    <None Include="core\worldgenerator.lua" />
+    <None Include="dialogs\data\d01.lua" />
+    <None Include="dialogs\dialoguesystem.lua" />
+    <None Include="entities\builderentity\builderentity.lua" />
+    <None Include="entities\camera\camera.lua" />
+    <None Include="entities\constructions\bench.lua" />
+    <None Include="entities\constructions\chest.lua" />
+    <None Include="entities\drop\dropmanager.lua" />
+    <None Include="entities\drop\droppable.lua" />
+    <None Include="entities\enemies\caterpillar.lua" />
+    <None Include="entities\enemies\dront.lua" />
+    <None Include="entities\enemies\enemy.lua" />
+    <None Include="entities\enemies\horner.lua" />
+    <None Include="entities\enemies\snowtroll.lua" />
+    <None Include="entities\enemies\spider.lua" />
+    <None Include="entities\items\grenade.lua" />
+    <None Include="entities\items\medicinechest.lua" />
+    <None Include="entities\items\repairkit.lua" />
+    <None Include="entities\mockup\mockupentity.lua" />
+    <None Include="entities\nature\basenature.lua" />
+    <None Include="entities\player\character.lua" />
+    <None Include="entities\player\player.lua" />
+    <None Include="entities\ui\maininterface.lua" />
+    <None Include="entities\ui\uibenchcontroller.lua" />
+    <None Include="entities\ui\uichestcontroller.lua" />
+    <None Include="entities\ui\uicontroller.lua" />
+    <None Include="entities\ui\uigadgetcontroller.lua" />
+    <None Include="entities\ui\uislotscontroller.lua" />
+    <None Include="entities\ui\uiweaponcontroller.lua" />
+    <None Include="entities\weapon\bullet.lua" />
+    <None Include="entities\weapon\grenade.lua" />
+    <None Include="obj\Debug\build.force" />
+    <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="unity\entity.lua" />
+    <None Include="unity\unityentity.lua" />
+    <None Include="utils\ailib\aidebugnode.lua" />
+    <None Include="utils\ailib\aiifnode.lua" />
+    <None Include="utils\ailib\ainode.lua" />
+    <None Include="utils\ailib\aiselector.lua" />
+    <None Include="utils\ailib\aisequence.lua" />
+    <None Include="utils\ailib\aitree.lua" />
+    <None Include="utils\ailib\import.lua" />
+    <None Include="utils\bhlib\action.lua" />
+    <None Include="utils\bhlib\andconditional.lua" />
+    <None Include="utils\bhlib\conditional.lua" />
+    <None Include="utils\bhlib\import.lua" />
+    <None Include="utils\bhlib\invertor.lua" />
+    <None Include="utils\bhlib\orconditional.lua" />
+    <None Include="utils\bhlib\selector.lua" />
+    <None Include="utils\bhlib\sequence.lua" />
+    <None Include="utils\bhlib\statefulselector.lua" />
+    <None Include="utils\bhlib\statefulsequence.lua" />
+    <None Include="utils\console.lua" />
+    <None Include="utils\hittest.lua" />
+    <None Include="utils\hump\class.lua" />
+    <None Include="utils\hump\list.lua" />
+    <None Include="utils\hump\stack.lua" />
+    <None Include="utils\hump\timeoutlist.lua" />
+    <None Include="utils\hump\timer.lua" />
+    <None Include="utils\hump\vector2.lua" />
+    <None Include="utils\hump\vector3.lua" />
+    <None Include="utils\import.lua" />
+    <None Include="utils\inifile.lua" />
+    <None Include="utils\inspect.lua" />
+    <None Include="utils\math.lua" />
+    <None Include="utils\string\stringutils.lua" />
+    <None Include="utils\tables.lua" />
+    <None Include="utils\time.lua" />
+    <None Include="utils\translates\bundleutils.lua" />
+    <None Include="utils\translates\camerautils.lua" />
+    <None Include="utils\translates\fileutils.lua" />
+    <None Include="utils\translates\import.lua" />
+    <None Include="utils\translates\input.lua" />
+    <None Include="utils\translates\loa.lua" />
+    <None Include="utils\translates\mecanimutils.lua" />
+    <None Include="utils\translates\raycastutils.lua" />
+    <None Include="utils\translates\rigidbodyutils.lua" />
+    <None Include="utils\translates\rotationutils.lua" />
+    <None Include="utils\translates\shaderutils.lua" />
+    <None Include="utils\translates\transformutils.lua" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

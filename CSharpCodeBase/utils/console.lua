@@ -1,0 +1,1 @@
+Console = luanet.GameFacade.console
