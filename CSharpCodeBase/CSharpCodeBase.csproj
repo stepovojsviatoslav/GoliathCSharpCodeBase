@@ -36,12 +36,45 @@
       <HintPath>..\..\..\Library\ScriptAssemblies\Assembly-CSharp.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="CrossDomainPolicyParser">
+      <HintPath>C:\Program Files\Unity 5.0.0b17\Editor\Data\Managed\CrossDomainPolicyParser.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.NRefactory">
+      <HintPath>C:\Program Files\Unity 5.0.0b17\Editor\Data\Managed\ICSharpCode.NRefactory.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil">
+      <HintPath>C:\Program Files\Unity 5.0.0b17\Editor\Data\Managed\Mono.Cecil.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>C:\Program Files\Unity 5.0.0b17\Editor\Data\Managed\nunit.framework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml" />
+    <Reference Include="Unity.CecilTools">
+      <HintPath>C:\Program Files\Unity 5.0.0b17\Editor\Data\Managed\Unity.CecilTools.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.DataContract">
+      <HintPath>C:\Program Files\Unity 5.0.0b17\Editor\Data\Managed\Unity.DataContract.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.IvyParser">
+      <HintPath>C:\Program Files\Unity 5.0.0b17\Editor\Data\Managed\Unity.IvyParser.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Locator">
+      <HintPath>C:\Program Files\Unity 5.0.0b17\Editor\Data\Managed\Unity.Locator.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.SerializationLogic">
+      <HintPath>C:\Program Files\Unity 5.0.0b17\Editor\Data\Managed\Unity.SerializationLogic.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor">
+      <HintPath>C:\Program Files\Unity 5.0.0b17\Editor\Data\Managed\UnityEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.Graphs">
+      <HintPath>C:\Program Files\Unity 5.0.0b17\Editor\Data\Managed\UnityEditor.Graphs.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine">
-      <HintPath>C:\Program Files\Unity 5.0.0b18\Editor\Data\Managed\UnityEngine.dll</HintPath>
+      <HintPath>C:\Program Files\Unity 5.0.0b17\Editor\Data\Managed\UnityEngine.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.UI">
@@ -100,7 +133,6 @@
     <Compile Include="components\character\vision.cs" />
     <Compile Include="components\character\weaponcontainer.cs" />
     <Compile Include="components\character\weaponsequencer.cs" />
-    <Compile Include="components\component.cs" />
     <Compile Include="components\controlsystem\action.cs" />
     <Compile Include="components\controlsystem\actionmachine.cs" />
     <Compile Include="components\controlsystem\actions\actionattackmouse.cs" />
@@ -286,7 +318,6 @@
     <None Include="components\character\vision.lua" />
     <None Include="components\character\weaponcontainer.lua" />
     <None Include="components\character\weaponsequencer.lua" />
-    <None Include="components\component.lua" />
     <None Include="components\controlsystem\action.lua" />
     <None Include="components\controlsystem\actionmachine.lua" />
     <None Include="components\controlsystem\actions\actionattackmouse.lua" />
