@@ -18,6 +18,11 @@ namespace MainGame {
         protected float height;
         protected Vector3 capsuleOffset;
 
+        public bool IsInteractable {
+            get { return interactable; }
+            set { interactable = value; }
+        }
+
         public void Awake() {
             InitRadiusAndHeight();
 
