@@ -15,7 +15,7 @@ using System;
  using UnityEngine.EventSystems;
  
  namespace MainGame{
- public class playercontroller :component{
+ //public class playercontroller :component{
  public void init (self, entity)      ;
        Component.init(self, entity);
        this.entity.playerController = self;

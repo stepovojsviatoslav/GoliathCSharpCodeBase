@@ -40,7 +40,7 @@ namespace MainGame
         public override bool Update()
         {
             ProcessMoving();
-            return state == STATE_ATTACK
+            return state == STATE_ATTACK;
         }
 
         public void ProcessMoving()
@@ -56,7 +56,7 @@ namespace MainGame
         public void OnEvent(object data)
         {
             string stringdata = (string)data;
-            if (strindata == "punch")
+            if (stringdata == "punch")
             {
                 state = STATE_ATTACK;
                 // FIXME: Attack code here
