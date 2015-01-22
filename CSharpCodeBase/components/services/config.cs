@@ -1,26 +1,18 @@
-using System;
- 
- using System.Collections.Generic;
- 
- using System.Linq;
- 
- using System.Text;
- 
- using UnityEngine;
- 
- using System.Collections;
- 
- using MainGame.core;
- 
- using UnityEngine.EventSystems;
- 
  namespace MainGame{
- public class config {
- public void init(self, table, section);
-       this.table = table;
-       this.section = section;
- }})
- public void Get(path){
-   return GameController.database:Get(this.table, this.section .. "/" .. path);
+
+ public class config 
+ {
+     private string _table;
+     private string _section;
+
+     public void init(string table, string section)
+     {
+         _table = table;
+         _section = section;
+     }
+
+     public object Get(string path)
+     {
+         return GameController.database.Get(_table, string.Format("{0}/{1}", _section, path));
+     }
  }
- }}
