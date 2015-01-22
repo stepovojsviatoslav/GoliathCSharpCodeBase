@@ -1,75 +1,100 @@
-using System;
- 
- using System.Collections.Generic;
- 
- using System.Linq;
- 
- using System.Text;
- 
- using UnityEngine;
- 
- using System.Collections;
- 
- using MainGame.core;
- 
- using UnityEngine.EventSystems;
- 
- namespace MainGame{
- public class daytime {
- public void init(self);
-       
-     this.PHASE_MORNING = 1;
-     this.PHASE_DAY_START = 2;
-     this.PHASE_DAY_PROGRESS = 3;
-     this.PHASE_DAY_END = 4;
-     this.PHASE_EVENING = 5;
-     this.PHASE_NIGHT = 6;
-     var configPhases = {"morning", "daystart", "day", "dayend", "evening", "night"}
-     
-     this.currentDay = 0;
-     this.phaseTimes = {}
-     this.phaseColors = {}
-     this.phaseAmbientColors = {}
-     
-     for(k, v in pairs(configPhases) ){
-       this.phaseTimes[k] = GameController.database:Get("daytime", v .. "/time");
-       this.phaseColors[k] = GameController.database:Get("daytime", v .. "/color");
-       this.phaseAmbientColors[k] = GameController.database:Get("daytime", v .. "/acolor");
-     }
-     this.currentPhase = this.PHASE_MORNING;
-     this.currentPhaseTime = this.phaseTimes[this.currentPhase];
-     this.currentPhaseTimeRunning = 0;
-     self:OnLoadPhase(this.currentPhase);
- }})
- public void Update(){
-   this.currentPhaseTimeRunning = this.currentPhaseTimeRunning + GameController.deltaTime;
-   this.currentPhaseTime = this.currentPhaseTime - GameController.deltaTime;
-   if(this.currentPhaseTime <= 0  ){ 
-     self:SwitchPhase();
-   }
- }
- public void SwitchPhase(){
-   var previousPhase = this.currentPhase;
-   this.currentPhase = this.currentPhase + 1;
-   if(this.currentPhase > this.PHASE_NIGHT  ){ 
-     this.currentPhase = this.PHASE_MORNING;
-     this.currentDay = this.currentDay + 1;
-   }
-   this.currentPhaseTime = this.phaseTimes[this.currentPhase];
-   this.currentPhaseTimeRunning = 0;
-   self:OnUnloadPhase(previousPhase);
-   self:OnLoadPhase(this.currentPhase);
- }
- public void OnUnloadPhase(phase){
-   
- }
- public void OnLoadPhase(phase){
-   print("Current phase " .. phase);
-   GameController.eventSystem:Event("DAY_PHASE_CHANGED",;
-     {
-       current = phase,;
-       color=this.phaseColors[phase],;
-       ambientColor=this.phaseAmbientColors[phase],;
-     })
- }
- }}
+using System.Collections.Generic;
+using System.Runtime.InteropServices;
+using UnityEngine;
+
+namespace MainGame
+{
+    public class daytime
+    {
+        public enum ePhase
+        {
+            PHASE_MORNING = 0,
+            PHASE_DAY_START = 1,
+            PHASE_DAY_PROGRESS = 2,
+            PHASE_DAY_END = 3,
+            PHASE_EVENING = 5,
+            PHASE_NIGHT = 6,
+        };
+
+        public ePhase currentPhase;
+
+        public int currentDay = 0;
+        private Dictionary<ePhase, float> phaseTimes;
+        private Dictionary<ePhase, Color> phaseColors;
+        private Dictionary<ePhase, Color> phaseAmbientColors;
+
+        private float currentPhaseTime;
+        private float currentPhaseTimeRunning;
+
+        public daytime()
+        {
+            string[] configPhases = new string[] {"morning", "daystart", "day", "dayend", "evening", "night"};
+            currentDay = 0;
+
+            phaseTimes = new Dictionary<ePhase, float>();
+            phaseColors = new Dictionary<ePhase, Color>();
+            phaseAmbientColors = new Dictionary<ePhase, Color>();
+
+            for (int i = 0; i < configPhases.Length; i++)
+            {
+                phaseTimes[(ePhase) i] = GameController.database.Get("daytime", configPhases[i] + "/time");
+                phaseColors[(ePhase) i] = GameController.database.Get("daytime", configPhases[i] + "/color");
+                phaseAmbientColors[(ePhase) i] = GameController.database.Get("daytime", configPhases[i] + "/acolor");
+            }
+
+            currentPhase = ePhase.PHASE_MORNING;
+            currentPhaseTime = phaseTimes[currentPhase];
+            currentPhaseTimeRunning = 0;
+            OnLoadPhase(currentPhase);
+        }
+
+        public void Update()
+        {
+            currentPhaseTimeRunning += GameController.deltaTime;
+            currentPhaseTime = currentPhaseTime - GameController.deltaTime;
+            if (currentPhaseTime <= 0)
+            {
+                SwitchPhase();
+            }
+        }
+
+        public void SwitchPhase()
+        {
+            int currentPhaseInt = (int) currentPhase;
+            ePhase previousPhase = currentPhase;
+            currentPhaseInt++;
+            if (currentPhaseInt > (int) ePhase.PHASE_NIGHT)
+            {
+                currentPhaseInt = (int)ePhase.PHASE_MORNING;
+                currentDay++;
+            }
+            currentPhase = (ePhase) currentPhaseInt;
+            currentPhaseTime = phaseTimes[currentPhase];
+            currentPhaseTimeRunning = 0;
+
+            OnUnloadPhase(previousPhase);
+            OnLoadPhase(currentPhase);
+        }
+
+        public void OnUnloadPhase(ePhase phase)
+        {
+
+        }
+
+        public void OnLoadPhase(ePhase phase)
+        {
+            // FIXME
+            // DAY PHASE CHANGED EVENT
+            /*
+                public void OnLoadPhase(phase){
+                    print("Current phase " .. phase);
+                    GameController.eventSystem:Event("DAY_PHASE_CHANGED",;
+                    {
+                    current = phase,;
+                    color=this.phaseColors[phase],;
+                    ambientColor=this.phaseAmbientColors[phase],;
+                    })
+             */
+        }
+    }
+}
