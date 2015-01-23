@@ -15,7 +15,7 @@ namespace MainGame{
 
         public void Awake()
         {
-            // FiX ME
+            // FiX ME            
             //gameObject.AddComponent<PlayerController>();
             //gameObject.AddComponent<GuiControl>();
         }

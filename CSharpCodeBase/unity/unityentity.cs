@@ -15,7 +15,7 @@ namespace MainGame {
         protected bool isStatic;
         protected float visibilityTime;
         protected float radius;
-        protected float height;
+        public float height;
         protected Vector3 capsuleOffset;
 
         public bool IsInteractable {
