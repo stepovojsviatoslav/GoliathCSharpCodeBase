@@ -11,7 +11,7 @@ using MainGame;
 namespace MainGame {
     public class Mover : MonoBehaviour {
         private Vector3 input;
-        private UnityEntity target;
+        private GameObject target;
         private float speed;
         private bool _isStop = false;
         private int moveType = 0;
@@ -20,14 +20,21 @@ namespace MainGame {
         private float targetDistance;
         private bool _useLoa;
         private bool _useLoaDefault;
-        private UnityEntity entity;
         private float _epsilon;
         private float _latestMoveSpeed;
         private int _latestMoveType;
+        private Vector3 newDirection = Vector3.zero;
+        private float raycastSphereRadius;
+        private float raycastForwardDistance;
+        private float raycastSphericalDistance;
+        private float offsetAngle;
 
         //FIXME
         public void Awake() {
-            this.entity = GetComponent<UnityEntity>();
+            this.raycastSphereRadius = GetComponent<config>().Get("raycastSphereRadius");
+            this.raycastForwardDistance = GetComponent<config>().("raycastForwardDistance");
+            this.raycastSphericalDistance = GetComponent<config>().("raycastSphericalDistance");
+            this.offsetAngle = GetComponent<config>().("offsetAngle");
         }
 
 
@@ -86,17 +93,17 @@ namespace MainGame {
         public void Stop() {
             this.SetInput(Vector3.zero);
             //FIXME MOVE
-            //RigidbodyUtils.Move(this.entity.rigidbody, this.input * this.speed * GameController.gameTime);
+            RigidbodyUtils.Move(gameObject.GetComponent<Rigidbody>(), this.input * this.speed * GameController.gameTime);
         }
 
         //FIXME
         public void CheckStop() {
             var inputLength = this.input.magnitude * this.speed;
             if (!this._isStop && inputLength == 0) {
-                //this.newDirection = Vector3();
+                this.newDirection = Vector3.zero;
                 this._isStop = true;
-                //RigidbodyUtils.Move(this.entity.rigidbody, Vector3());
-                //RigidbodyUtils.ResetVelocity(this.entity.rigidbody)
+                RigidbodyUtils.Move(GetComponent<Rigidbody>(),Vector3.zero);
+                RigidbodyUtils.ResetVelocity(GetComponent<Rigidbody>());
             } else if (this._isStop && inputLength != 0) {
                 this._isStop = false;
             }
@@ -107,14 +114,14 @@ namespace MainGame {
             this.speed = speed;
         }
 
-        public void SetInputToVec(Vector3 vec3, UnityEntity stayTarget = null, int moveType = 0, bool ignoreLoa = true) {
+        public void SetInputToVec(Vector3 vec3, GameObject stayTarget = null, int moveType = 0, bool ignoreLoa = true) {
             if (ignoreLoa) {
                 this._useLoa = false;
             } else {
                 this._useLoa = this._useLoaDefault;
             }
-            if (!stayTarget) { this.target = null; }
-            var dv = vec3 - this.entity.GetPosition();
+            if (stayTarget!=null) { this.target = null; }
+            var dv = vec3 - gameObject.transform.position;
             this.input.x = dv.x;
             this.input.z = dv.z;
             if (this.input.magnitude > 1) {
@@ -124,14 +131,14 @@ namespace MainGame {
             this.moveType = moveType;
         }
 
-        public void SetInputFromVec(Vector3 vec3, UnityEntity stayTarget = null, int moveType = 0, bool ignoreLoa = true) {
+        public void SetInputFromVec(Vector3 vec3, GameObject stayTarget = null, int moveType = 0, bool ignoreLoa = true) {
             if (ignoreLoa) {
                 this._useLoa = false;
             } else {
                 this._useLoa = this._useLoaDefault;
             }
-            if (!stayTarget) { this.target = null; }
-            var dv = vec3 - this.entity.GetPosition();
+            if (stayTarget != null) { this.target = null; }
+            var dv = vec3 - gameObject.transform.position;
             this.input.x = -dv.x;
             this.input.z = -dv.z;
             if (this.input.magnitude > 1) {
@@ -143,10 +150,10 @@ namespace MainGame {
 
         //FIXME
         public void LookAt(Vector3 vec3) {
-            //RigidbodyUtils.LookAt(this.entity.rigidbody, vec3);
+            RigidbodyUtils.LookAt(gameObject.GetComponent<Rigidbody>(), vec3);
         }
 
-        public void SetGoal(UnityEntity target, int moveType = 0, float distance = 0) {
+        public void SetGoal(GameObject target, int moveType = 0, float distance = 0) {
             this.target = target;
             this.targetDistance = distance;
             this.moveType = moveType;
@@ -155,7 +162,7 @@ namespace MainGame {
             return this.target != null;
         }
         public bool IsReachDestination(Vector3 vec3) {
-            var localPos = this.entity.GetPosition();
+            var localPos = gameObject.transform.position;
             var v1 = new Vector2(localPos.x, localPos.z);
             var v2 = new Vector2(vec3.x, vec3.z);
             return Vector2.Distance(v1, v2) < this._epsilon;
@@ -165,9 +172,9 @@ namespace MainGame {
         public void Update(){
           if(this.target != null  ){ 
             // check if(we reach target
-            var pos = this.target.GetPosition();
+            var pos = gameObject.transform.position;
             //print(this.entity:GetEffectiveDistance(this.entity, this.target))
-            if(pos != null && (this.entity.GetEffectiveDistance(this.target) < this.targetDistance  ||  !this.target.IsInteractable){
+            if(pos != null && (this.GetComponent<UnityEntity>().GetEffectiveDistance(this.target) < this.targetDistance  ||  !this.target.GetComponent<UnityEntity>().IsInteractable)){
               this.target = null;
               Stop();
             }else if( pos != null && IsReachDestination(pos)){ 
@@ -179,11 +186,11 @@ namespace MainGame {
           }
           var moveSpeed = (this.input * this.speed).magnitude;
           if(this._latestMoveSpeed != moveSpeed  ){ 
-            //this.entity.mecanim:SetFloat("move_speed", moveSpeed);
+            GetComponent<Animator>().SetFloat("move_speed", moveSpeed);
             this._latestMoveSpeed = moveSpeed;
           }
           if(this._latestMoveType != this.moveType  ){ 
-           // this.entity.mecanim:SetFloat("move_type", this.moveType);
+            GetComponent<Animator>().SetFloat("move_type", this.moveType);
             this._latestMoveType = this.moveType;
           }
         }
@@ -192,38 +199,38 @@ namespace MainGame {
         public void FixedUpdate() {
             if (!this._isStop) {
                 if (this._useLoa == true) {
-                    /* var result = RigidbodyUtils.AvoidMove(this.entity.gameObject, ;
-                                                             this.input, ;
-                                                             this.newDirection, ;
-                                                             this.raycastSphereRadius , ;
-                                                             this.raycastForwardDistance, ;
-                                                             this.raycastSphericalDistance ,;
+                    var result = RigidbodyUtils.AvoidMove(gameObject, 
+                                                             this.input, 
+                                                             this.newDirection, 
+                                                             this.raycastSphereRadius , 
+                                                             this.raycastForwardDistance, 
+                                                             this.raycastSphericalDistance ,
                                                              this.offsetAngle);
-                   this.input = Vector3(result.x1, 0, result.z1);
-                   this.newDirection = Vector3(result.x2, 0, result.z2);
-                   }*/
+                   this.input = new Vector3(result.x1, 0, result.z1);
+                   this.newDirection = new Vector3(result.x2, 0, result.z2);
+                   }
                 }
                 if (this.speedCurve != null) {
-                    //this.input = this.input * this.entity.mecanim:GetFloat("speed_curve");
+                    this.input = this.input * GetComponent<Animator>().GetFloat("speed_curve");
                 }
-                //if(this.newDirection  &&  this.newDirection.x != 0  &&  this.newDirection.y !=0  &&  this.newDirection.z !=0  ){ 
-                //  this.input = this.newDirection;
-                //}
+                if(this.newDirection != Vector3.zero ){ 
+                  this.input = this.newDirection;
+                }
             }
-            if (this.input.magnitude > 0) {
+            if(this.input.magnitude > 0) {
                 if (this.autoLook) {
-                    //RigidbodyUtils.Move(this.entity.rigidbody, this.input * this.speed, this._useLoa  &&  5  ||  10);
+                    RigidbodyUtils.Move(GetComponent<Rigidbody>(), this.input * this.speed, this._useLoa);
                 } else {
-                    //if(GameController.inputService:IsGamepad() == false  ){ 
-                    //  RigidbodyUtils.MoveLookAtMouse(this.entity.rigidbody, this.input * this.speed, this.entity.height / 3);
-                    // }else{
-                    //  if(this.entity.gamepadRightStickController  &&   this.entity.gamepadRightStickController:GetTarget()  ){ 
-                    //    RigidbodyUtils.MoveNotRotate(this.entity.rigidbody, this.input * this.speed);
-                    //    self:LookAt((this.entity.gamepadRightStickController:GetTarget():GetPosition()));
-                    //  }else{
-                    //    RigidbodyUtils.Move(this.entity.rigidbody, this.input * this.speed);
-                    //  }
-                    // }
+                    if(GameController.inputService.IsGamepad() == false  ){ 
+                      RigidbodyUtils.MoveLookAtMouse(GetComponent<Rigidbody>(), this.input * this.speed, this.entity.height / 3);
+                     }else{
+                      if(gamepadRightStickController  &&   gamepadRightStickController.GetTarget()  ){ 
+                        RigidbodyUtils.MoveNotRotate(GetComponent<Rigidbody>(), this.input * this.speed);
+                        LookAt((this.entity.gamepadRightStickController.GetTarget().transform.position));
+                      }else{
+                        RigidbodyUtils.Move(GetComponent<Rigidbody>(), this.input * this.speed);
+                      }
+                     }
                 }
             }
         }

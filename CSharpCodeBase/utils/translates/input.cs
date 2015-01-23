@@ -15,7 +15,7 @@ using System;
  using UnityEngine.EventSystems;
  
  namespace MainGame{
- public class input {
+ public class Input {
  KeyCode = UnityEngine.KeyCode;
  Input = {}
  Input.enabled = true;

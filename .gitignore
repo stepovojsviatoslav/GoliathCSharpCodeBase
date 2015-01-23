@@ -53,3 +53,5 @@ $RECYCLE.BIN/
 *.msi
 *.msm
 *.msp
+*.cache
+CSharpCodeBase/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache

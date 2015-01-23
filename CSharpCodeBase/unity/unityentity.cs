@@ -123,9 +123,9 @@ namespace MainGame {
             return result;
         }
 
-        public float GetSimpleDistance(UnityEntity targetEntity) {
+        public float GetSimpleDistance(GameObject targetEntity) {
             var localPos = GetPosition2D();
-            var targetPos = targetEntity.GetPosition2D();
+            var targetPos = targetEntity.GetComponent<UnityEntity>().GetPosition2D();
             var result = (localPos - targetPos).magnitude;
             return result;
         }
@@ -137,12 +137,12 @@ namespace MainGame {
             return result;
         }
 
-        public float GetEffectiveDistance(UnityEntity targetEntity) {
+        public float GetEffectiveDistance(GameObject targetEntity) {
             var localPos = transform.TransformPoint(this.capsuleOffset);
-            var targetPos = transform.TransformPoint(targetEntity.capsuleOffset);
+            var targetPos = transform.TransformPoint(targetEntity.GetComponent<UnityEntity>().capsuleOffset);
             localPos.y = 0;
             targetPos.y = 0;
-            var result = (localPos - targetPos).magnitude - this.radius - targetEntity.radius;
+            var result = (localPos - targetPos).magnitude - this.radius - targetEntity.GetComponent<UnityEntity>().radius;
             if (result < 0) { result = 0; }
             return result;
         }
