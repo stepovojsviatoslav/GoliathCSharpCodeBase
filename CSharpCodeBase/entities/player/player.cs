@@ -7,16 +7,17 @@ using System.Collections;
 using MainGame.core;
 //using UnityEngine.EventSystems;
  
-namespace MainGame{
+namespace MainGame
+{
     public class Player : UnityEntity
     {   
-        protected Vector3 homePosition;
-        protected bool isStatic = false;
+        public Vector3 homePosition;
 
-        public void Awake()
+        new public void Awake()
         {
+            isStatic = false;
             // FiX ME            
-            //gameObject.AddComponent<PlayerController>();
+            gameObject.AddComponent<PlayerController>();
             //gameObject.AddComponent<GuiControl>();
         }
         

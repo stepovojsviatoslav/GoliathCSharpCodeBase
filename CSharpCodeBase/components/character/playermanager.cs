@@ -7,7 +7,7 @@ using System.Collections;
 using MainGame.core;
 
 namespace MainGame {
-    public class PlayerController : MonoBehaviour {
+    public class PlayerManager : MonoBehaviour {
         private int countSlots = 0;
         private int maxCountSlots = 1;
         private int currentSlot = 0;
@@ -17,13 +17,8 @@ namespace MainGame {
         private CharacterGear characterGear = GameFacade.characterGear;
 
 
-        /*public void init (self, entity)      ;
-              Component.init(self, entity);
-              this.entity.playerController = self;
-              this.slots = {}      
-              this.countSlots = 0;
-              this.maxCountSlots = GameController.database:Get("heroes", "Common/maxCountSlots");
-              this.currentSlot = 0                  ;
+        /*public void init (self, entity)      ;              
+              this.slots = {}                                                
               this.characterGear = luanet.GameFacade.characterGear;
               this.characterGear:SetupFinalCallback(function (idx) self:OnUIFinalSelectionCallback(idx) }){
               this.characterGearEnabled = false;
@@ -32,7 +27,7 @@ namespace MainGame {
 
         public void Awake() {
             this.maxCountSlots = GetComponent<config>.Get("heroes", "Common/maxCountSlots");
-            this.characterGear.SetupFinalCallback(/*callvack*/);
+            this.characterGear.SetupFinalCallback(/*callback*/);
         }
 
         public void OnUIFinalSelectionCallback(int idx) {

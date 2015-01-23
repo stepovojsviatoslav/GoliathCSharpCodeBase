@@ -13,6 +13,8 @@ namespace MainGame
 
         public EntityFactory entityFactory;
         public float gameTime = 0;
+        public static Player player;
+
         void Start()
         {
             //function GameController:Start()

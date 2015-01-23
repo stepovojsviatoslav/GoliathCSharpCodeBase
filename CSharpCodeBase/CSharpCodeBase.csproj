@@ -125,7 +125,7 @@
     <Compile Include="components\character\grenademodevisualizer.cs" />
     <Compile Include="components\character\health.cs" />
     <Compile Include="components\character\mover.cs" />
-    <Compile Include="components\character\playercontroller.cs" />
+    <Compile Include="components\character\playermanager.cs" />
     <Compile Include="components\character\possibleactions.cs" />
     <Compile Include="components\character\relationship.cs" />
     <Compile Include="components\character\resist.cs" />

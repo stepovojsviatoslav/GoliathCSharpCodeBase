@@ -11,26 +11,25 @@ namespace MainGame
 {
     public class Character : UnityEntity
     {
-        protected bool isDeath = false;
+        private bool isDeath = false;
         protected float deathTimeout = 0f;
         protected bool isStatic = false;
         protected int characterClass;
-        //characterClass = this.config:Get("characterClass")  ||  1;                        
+        protected Dictionary<string, object> config;
 
-        public void Awake()
+        new public void Awake()
         {
-            //ConfigComponent config = ConfigComponent("heroes", name);        
+            //config = GetComponent<config>().Get("heroes", name);        
             //gameObject.AddComponent<HealthComponnent>();
             //gameObject.AddComponent<CharacterDamageReceiver>();
             //gameObject.AddComponent<DamageVisualizerComponent>();
-            //gameObject.AddComponent<MecanimComponent>();
-            //gameObject.AddComponent<Mover>();
+            gameObject.AddComponent<Mover>();
             //gameObject.AddComponent<CharacterWeaponContainer>();
             //gameObject.AddComponent<CombatComponent>();
             //gameObject.AddComponent<ResistComponent>();
             //gameObject.AddComponent<DamageProcessorComponent>();
             //gameObject.AddComponent<DamageReceiverComponent>();
-            //gameObject.AddComponent<PlayerControllerComponent>();
+            gameObject.AddComponent<PlayerController>();
             //gameObject.AddComponent<PossibleActionsComponent>();
             //gameObject.AddComponent<GrenageVisualizer>();
             //gameObject.AddComponent<GamePadMover>();
@@ -39,9 +38,15 @@ namespace MainGame
             //}
             //gameObject.AddComponent<TimeManagerComponentr>();
             //GetComponent<Mover>().autoLook = false;            
+
+            var tmp = config["characterClass"];
+            if (tmp != null)
+                characterClass = (int)tmp;
+            else
+                tmp = 1;
         }                                                      
         
-        public void Update()
+        new public void Update()
         {           
         //// for left trigger
         //if self.gamepadRightStickController then
@@ -61,7 +66,7 @@ namespace MainGame
         //    }
         //  }
         }
-        public void FixedUpdate()
+        new public void FixedUpdate()
         {
             if (!isDeath)
                 base.FixedUpdate();        
@@ -91,31 +96,28 @@ namespace MainGame
             if (characterClass > 1)
             { 
                 // mech
-                //GetComponent<Mover>().Stop();
+                GetComponent<Mover>().Stop();
                 isDeath = true;
                 interactable = false;
                 enabled = false;
-                //GameController.player.playerController:DeleteCurrentSlot();
+                GameController.player.GetComponent<PlayerManager>().DeleteCurrentSlot();
             }
             else
             {
-                //GetComponent<Mecanim>():ForceSetState("Death");
+                GetComponent<Animator>().Play("Death");
                 isDeath = true;
                 interactable = false;
                 deathTimeout = 5;
-                //GetComponent<Mover>:Stop();
+                GetComponent<Mover>().Stop();
           }
         }
         
         public void Respawn()
         {
             SendMessage("OnRespawn");
-            //SetPosition(GameController.player.homePosition) ;
-            //GameController.worldController:TeleportTargetTransform(this.transform, ;
-            //GameController.player.homePosition.x,;
-            //GameController.player.homePosition.y,;
-            //GameController.player.homePosition.z);
-            //GetComponent<Mecanim>():ForceSetState("Idle");
+            SetPosition(GameController.player.homePosition) ;
+            //GameController.worldController:TeleportTargetTransform(this.transform, GameController.player.homePosition.x, GameController.player.homePosition.y, GameController.player.homePosition.z);
+            GetComponent<Animator>().Play("Idle");
             interactable = true;
             isDeath = false;
         }
