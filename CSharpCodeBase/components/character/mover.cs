@@ -186,11 +186,11 @@ namespace MainGame {
           }
           var moveSpeed = (this.input * this.speed).magnitude;
           if(this._latestMoveSpeed != moveSpeed  ){ 
-            mecanim.SetFloat("move_speed", moveSpeed);
+            GetComponent<Animator>().SetFloat("move_speed", moveSpeed);
             this._latestMoveSpeed = moveSpeed;
           }
           if(this._latestMoveType != this.moveType  ){ 
-            mecanim.SetFloat("move_type", this.moveType);
+            GetComponent<Animator>().SetFloat("move_type", this.moveType);
             this._latestMoveType = this.moveType;
           }
         }
@@ -211,7 +211,7 @@ namespace MainGame {
                    }
                 }
                 if (this.speedCurve != null) {
-                    this.input = this.input * mecanim.GetFloat("speed_curve");
+                    this.input = this.input * GetComponent<Animator>().GetFloat("speed_curve");
                 }
                 if(this.newDirection != Vector3.zero ){ 
                   this.input = this.newDirection;
