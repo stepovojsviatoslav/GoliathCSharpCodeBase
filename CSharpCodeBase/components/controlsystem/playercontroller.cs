@@ -170,7 +170,7 @@ namespace MainGame
                 }
 
                 Vector3 vec3;
-                gamepadmover gmover = gameObject.GetComponent<gamepadmover>();
+                GamepadMover gmover = gameObject.GetComponent<GamepadMover>();
                 if (gmover != null && gmover.GetTarget() != null)
                 {
                     vec3 = gmover.GetTarget().transform.position;
