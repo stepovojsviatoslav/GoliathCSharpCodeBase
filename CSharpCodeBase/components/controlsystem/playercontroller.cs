@@ -1,7 +1,7 @@
 using UnityEngine;
 namespace MainGame
 {
-    public class playercontroller : MonoBehaviour
+    public class PlayerController : MonoBehaviour
     {
         private actionmachine actionMachine;
         private float spaceCommandTimer;
