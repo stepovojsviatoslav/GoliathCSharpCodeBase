@@ -1,69 +1,85 @@
-using System;
+namespace MainGame
+{
+    public class action
+    {
+        protected int priority;
+        protected bool continuous;
+        protected string name;
+
+        private bool isStarted = false;
+
+        public void init(int priority, bool continuous, string name)
+        {
+            this.priority = priority;
+            this.continuous = continuous;
+            this.name = name;
+            this.isStarted = false;
+        }
+
+        public bool IsStarted()
+        {
+            return isStarted;
+        }
+
+        public void OnStart()
+        {
+            isStarted = true;
+            OnStartRunning();
+        }
+
+        public void OnSuspend()
+        {
+            OnStopRunning();
+        }
+
+        public void OnResume()
+        {
+            OnStartRunning();
+        }
+
+        public void OnComplete()
+        {
+            OnStopRunning();
+        }
+
+        public void OnRemove()
+        {
+            OnStopRunning();
+        }
+
+        virtual public void FixedUpdate()
+        {
+        }
+
+        virtual public bool Update()
+        {
+        }
+
+        virtual public void OnStopRunning()
+        {
+        }
+
+        virtual public void OnStartRunning()
+        {
+        }
+
+        virtual public void OnPushed()
+        {
+        }
+
+        virtual public bool IsContinuous()
+        {
+            return continuous;
+        }
+
+        virtual public int GetPriority()
+        {
+            return priority;
+        }
+
+        virtual public void OnEvent(object data)
+        {
+        }
+    }
+}
  
- using System.Collections.Generic;
- 
- using System.Linq;
- 
- using System.Text;
- 
- using UnityEngine;
- 
- using System.Collections;
- 
- using MainGame.core;
- 
- using UnityEngine.EventSystems;
- 
- namespace MainGame{
- public class action {
- public void init(self, priority, continuous, name);
-       this.priority = priority;
-       this.continuous = continuous  &&  true  ||  false;
-       this.isStarted = false;
-       this.name = name;
- }})
- public void OnFetch(...){
-   self:init(...);
- }
- public void Free(){
-   if(this.__pool != null  ){ 
-     this.__pool:Release(self);
-   }
- }
- public void IsStarted(){
-   return this.isStarted;
- }
- public void OnStart(){
-   this.isStarted = true;
-   self:OnStartRunning()  ;
- }
- public void OnSuspend(){
-   self:OnStopRunning();
- }
- public void OnResume(){
-   self:OnStartRunning();
- }
- public void OnComplete(){
-   self:OnStopRunning();
- }
- public void FixedUpdate(){
-   
- }
- public void OnStopRunning(){
- }
- public void OnStartRunning(){
- }
- public void OnPushed(){
- }
- public void OnRemove(){
-   self:OnStopRunning();
- }
- public void IsContinuous(){
-   return this.continuous;
- }
- public void GetPriority(){
-   return this.priority ;
- }
- public void OnEvent(data){
- }
- }}
