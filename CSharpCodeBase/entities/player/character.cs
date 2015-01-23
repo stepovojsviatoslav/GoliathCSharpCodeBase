@@ -20,7 +20,7 @@ namespace MainGame
         new public void Awake()
         {
             //config = GetComponent<config>().Get("heroes", name);        
-            //gameObject.AddComponent<HealthComponnent>();
+            gameObject.AddComponent<Health>();
             //gameObject.AddComponent<CharacterDamageReceiver>();
             //gameObject.AddComponent<DamageVisualizerComponent>();
             gameObject.AddComponent<Mover>();
@@ -32,10 +32,10 @@ namespace MainGame
             gameObject.AddComponent<PlayerController>();
             //gameObject.AddComponent<PossibleActionsComponent>();
             //gameObject.AddComponent<GrenageVisualizer>();
-            //gameObject.AddComponent<GamePadMover>();
-            //if(!GameController.inputService:IsGamepad()) {
-            //  GetComponent<GamePadMover>().enabled = false;
-            //}
+            gameObject.AddComponent<GamePadMover>();
+            if(!GameController.inputService.IsGamepad()) {
+              GetComponent<GamePadMover>().enabled = false;
+            }
             //gameObject.AddComponent<TimeManagerComponentr>();
             //GetComponent<Mover>().autoLook = false;            
 
@@ -47,25 +47,35 @@ namespace MainGame
         }                                                      
         
         new public void Update()
-        {           
-        //// for left trigger
-        //if self.gamepadRightStickController then
-        //if GameController.inputService:LeftTriggerIsPressed() then
-        //self.gamepadRightStickController.active = false
-        //self.gamepadRightStickController:Disable()
-        //else
-        //self.gamepadRightStickController.active = true
-        //end
-        ///end  
-        //  if(not this.isDeath  ){ 
-        //    UnityExistsEntity.Update(self);
-        //  }else{
-        //    this.deathTimeout = this.deathTimeout - GameController.deltaTime;
-        //    if(this.deathTimeout <= 0  ){ 
-        //      self:Respawn();
-        //    }
-        //  }
+        {
+            var gamePadMover = GetComponent<GamePadMover>();
+            // for left trigger
+            if (gamePadMover.enabled)
+            {
+                if (GameController.inputService.LeftTriggerIsPressed())
+                {
+                    gamePadMover.enabled = false;
+                    gamePadMover.Disable();
+                }
+                else
+                {
+                    gamePadMover.enabled = true;
+                }
+            }
+            if(!isDeath)
+            { 
+                base.Update();
+            }
+            else
+            {
+                deathTimeout = deathTimeout - Time.deltaTime;
+                if(deathTimeout <= 0)
+                { 
+                    Respawn();
+                }
+            }
         }
+
         new public void FixedUpdate()
         {
             if (!isDeath)
@@ -138,10 +148,11 @@ namespace MainGame
         {
             //GameController.spellSystem:SaveStatuses();
             interactable = false;
-            this.enabled = false;
-            //if(this.gamepadRightStickController  ){ 
-            //this.gamepadRightStickController:DropTarget();
-            //}  
+            enabled = false;
+            if (GetComponent<GamePadMover>().enabled)
+            { 
+                GetComponent<GamePadMover>().DropTarget();
+            }  
         }
 
         /* FiX ME AFTER SPELL will be defined
