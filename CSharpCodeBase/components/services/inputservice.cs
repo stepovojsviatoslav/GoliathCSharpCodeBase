@@ -4,19 +4,20 @@ using UnityEngine;
 
 namespace MainGame 
 {
-    public class inputservice {
+    public class InputService {
         private string defaultLayer = "Default Layer";
         private string mouseAndKeyboard = "Keyboard/Mouse";
 
         private Stack<string> inputLayersStack;
         private InputDevice inputDevice;
-    
-        public void init
+    /*
+        public void init ()
         {
             inputLayersStack = new Stack<string>();
             inputLayersStack.Push(defaultLayer);
             inputDevice = InputManager.ActiveDevice;
         }
+     */
 
         public bool IsGamepad()
         {

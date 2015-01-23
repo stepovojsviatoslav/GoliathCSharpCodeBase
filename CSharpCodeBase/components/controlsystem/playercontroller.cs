@@ -8,7 +8,7 @@ namespace MainGame
         private float raycastScreenTimer;
         private GameObject currentLabelEntity;
         private UIMouseUnderLabel mouseLabel;
-        private inputservice inputService;
+        private InputService inputService;
 
         public void init()
         {
@@ -170,7 +170,7 @@ namespace MainGame
                 }
 
                 Vector3 vec3;
-                GamepadMover gmover = gameObject.GetComponent<GamepadMover>();
+                GamePadMover gmover = gameObject.GetComponent<GamePadMover>();
                 if (gmover != null && gmover.GetTarget() != null)
                 {
                     vec3 = gmover.GetTarget().transform.position;

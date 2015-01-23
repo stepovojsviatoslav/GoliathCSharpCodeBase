@@ -14,6 +14,7 @@ namespace MainGame
         public EntityFactory entityFactory;
         public float gameTime = 0;
         public static Player player;
+        public static InputService inputService;
 
         void Start()
         {

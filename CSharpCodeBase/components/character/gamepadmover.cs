@@ -8,7 +8,7 @@ using MainGame.core;
 
 
 namespace MainGame {
-    public class GamepadMover : MonoBehaviour {
+    public class GamePadMover : MonoBehaviour {
         private float angle = 15;
         private float stickDirAngle = 0;
         private float radius = 20;
