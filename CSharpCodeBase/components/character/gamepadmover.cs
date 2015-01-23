@@ -46,7 +46,7 @@ namespace MainGame {
         }
         //FIXME
         public Dictionary<float, GameObject> GetEntitiesInRadius() {
-            //var tempEntityList = RaycastUtils.GetEntitiesInRadius(transform.position, this.radius);
+            var tempEntityList = RaycastUtils.GetEntitiesInRadius(transform.position, this.radius);
             var entityList = new Dictionary<float, GameObject>();
             foreach (var v in tempEntityList) {
                 if (v.tag != "Player" && v.tag == "Enemy") {
