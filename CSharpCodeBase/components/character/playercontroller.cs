@@ -31,7 +31,8 @@ namespace MainGame {
        */
 
         public void Awake() {
-             this.characterGear.SetupFinalCallback(/*callvack*/){
+            this.maxCountSlots = GetComponent<config>.Get("heroes", "Common/maxCountSlots");
+            this.characterGear.SetupFinalCallback(/*callvack*/);
         }
 
         public void OnUIFinalSelectionCallback(int idx) {

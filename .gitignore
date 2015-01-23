@@ -55,3 +55,4 @@ $RECYCLE.BIN/
 *.msp
 *.cache
 CSharpCodeBase/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+*.csproj
