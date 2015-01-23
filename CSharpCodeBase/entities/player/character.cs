@@ -11,47 +11,47 @@ namespace MainGame
 {
     public class Character : UnityEntity
     {
-        Character (GameObject gameObject)
+        protected bool isDeath = false;
+        protected float deathTimeout = 0f;
+        protected bool isStatic = false;
+        protected int characterClass;
+        //characterClass = this.config:Get("characterClass")  ||  1;                        
+
+        public void Awake()
         {
-            base(gameObject);
-            ConfigComponent config = ConfigComponent("heroes", name);
-        }
-        //      this.rigidbody = this.gameObject:GetComponent("Rigidbody");
-        //      self:AddComponent(HealthComponent);
-        //      self:AddComponent(CharacterDamageReceiver);
-        //      self:AddComponent(DamageVisualizerComponent);
-        //      self:AddComponent(MecanimComponent)      ;
-        //      self:AddComponent(Mover)        ;
-        //      self:AddComponent(CharacterWeaponContainer)      ;
-        //      self:AddComponent(CombatComponent);
-        //      self:AddComponent(ResistComponent);
-        //      self:AddComponent(DamageProcessorComponent);
-        //      self:AddComponent(DamageReceiverComponent);
-        //      self:AddComponent(PlayerControllerComponent);
-        //      self:AddComponent(PossibleActionsComponent);
-        //      self:AddComponent(GrenageVisualizer);
-        //      if(GameController.inputService:IsGamepad()  ){ 
-        //        self:AddComponent(GamePadMover);
-        //      }
-        //      self:AddComponent(TimeManagerComponent);
-        //      this.luaMapper:SetAlwaysVisible(true);
-        //      this.isDeath = false;
-        //      this.deathTimeout = 0;
-        //      this.characterClass = this.config:Get("characterClass")  ||  1;
-        //      this.static = false;
-        //      this.mover.autoLook = false;
-        //}})
-        //public void CharacterEntity:Update(){
-        //  //// for(left trigger
-        //  if(this.gamepadRightStickController  ){ 
-        //    if(GameController.inputService:LeftTriggerIsPressed()  ){ 
-        //      this.gamepadRightStickController.active = false;
-        //      this.gamepadRightStickController:Disable();
-        //    }else{
-        //      this.gamepadRightStickController.active = true;
-        //    }
-        //  }
-        //  //  
+            //ConfigComponent config = ConfigComponent("heroes", name);        
+            //gameObject.AddComponent<HealthComponnent>();
+            //gameObject.AddComponent<CharacterDamageReceiver>();
+            //gameObject.AddComponent<DamageVisualizerComponent>();
+            //gameObject.AddComponent<MecanimComponent>();
+            //gameObject.AddComponent<Mover>();
+            //gameObject.AddComponent<CharacterWeaponContainer>();
+            //gameObject.AddComponent<CombatComponent>();
+            //gameObject.AddComponent<ResistComponent>();
+            //gameObject.AddComponent<DamageProcessorComponent>();
+            //gameObject.AddComponent<DamageReceiverComponent>();
+            //gameObject.AddComponent<PlayerControllerComponent>();
+            //gameObject.AddComponent<PossibleActionsComponent>();
+            //gameObject.AddComponent<GrenageVisualizer>();
+            //gameObject.AddComponent<GamePadMover>();
+            //if(!GameController.inputService:IsGamepad()) {
+            //  GetComponent<GamePadMover>().enabled = false;
+            //}
+            //gameObject.AddComponent<TimeManagerComponentr>();
+            //GetComponent<Mover>().autoLook = false;            
+        }                                                      
+        
+        public void Update()
+        {           
+        //// for left trigger
+        //if self.gamepadRightStickController then
+        //if GameController.inputService:LeftTriggerIsPressed() then
+        //self.gamepadRightStickController.active = false
+        //self.gamepadRightStickController:Disable()
+        //else
+        //self.gamepadRightStickController.active = true
+        //end
+        ///end  
         //  if(not this.isDeath  ){ 
         //    UnityExistsEntity.Update(self);
         //  }else{
@@ -60,94 +60,117 @@ namespace MainGame
         //      self:Respawn();
         //    }
         //  }
-        //}
-        //public void CharacterEntity:FixedUpdate(){
-        //  if(not this.isDeath  ){ 
-        //    UnityExistsEntity.FixedUpdate(self);
-        //  }
-        //}
-        //public void CharacterEntity:CanAttack(targetEntity){
-        //  // check weapon for(target entity
-        //  return this.weaponContainer:CanAttack(targetEntity);
-        //}
-        //public void CharacterEntity:OnEvent(data){
-        //  UnityExistsEntity.OnEvent(self, data);
-        //}
-        //public void CharacterEntity:Hit(damageData){
-        //  //if damageData.summary != 0  ){ 
-        //    self:Message("Hit", damageData);
-        //  //end
-        //}
-        //public void CharacterEntity:Pushed(damageData){
-        //  //if damageData.summary != 0  ){ 
-        //    self:Message("Pushed", damageData);
-        //  //end
-        //}
-        //public void CharacterEntity:Death(){
-        //  if(this.characterClass > 1  ){ 
-        //    // mech
-        //    this.mover:Stop();
-        //    this.isDeath = true;
-        //    this.interactable = false;
-        //    this.enabled = false;
-        //    GameController.player.playerController:DeleteCurrentSlot();
-        //  }else{
-        //    this.mecanim:ForceSetState("Death");
-        //    this.isDeath = true;
-        //    this.interactable = false;
-        //    this.deathTimeout = 5;
-        //    this.mover:Stop();
-        //  }
-        //}
-        //public void CharacterEntity:Respawn(){
-        //  self:Message("OnRespawn");
-        //  self:SetPosition(GameController.player.homePosition) ;
-        //  GameController.worldController:TeleportTargetTransform(this.transform, ;
-        //    GameController.player.homePosition.x,;
-        //    GameController.player.homePosition.y,;
-        //    GameController.player.homePosition.z);
-        //  this.mecanim:ForceSetState("Idle");
-        //  this.interactable = true;
-        //  this.isDeath = false;
-        //}
-        //public void CharacterEntity:OnSelectCharacter(){
-        //  GameController.ui.SetupIcon(this.config:Get("cpanel_icon"));
-        //  GameController.ui.SetupAmount(this.health:GetPercentAmount());
-        //  //GameController.ui.UpdateHealth(this.health:GetPercentAmount())
-        //  print("Spell system initialization!");
-        //  GameController.spellSystem:SetupSpells(this.config:Get("spell"));
-        //  //GameController.ui.slotsController:SetContainerSubTag("weapon", this.config:Get("weaponTag"))  
-        //  this.interactable = true;
-        //  this.enabled = true;
-        //}
-        //public void CharacterEntity:OnDeselectCharacter()  {
-        //  GameController.spellSystem:SaveStatuses();
-        //  this.interactable = false;
-        //  this.enabled = false;
-        //  if(this.gamepadRightStickController  ){ 
-        //    this.gamepadRightStickController:DropTarget();
-        //  }  
-        //}
-        //public void CharacterEntity:OnSpellCast(spell){
+        }
+        public void FixedUpdate()
+        {
+            if (!isDeath)
+                base.FixedUpdate();        
+        }
+
+        public void CanAttack(GameObject targetEntity)
+        {
+        // check weapon for(target entity
+          //return this.weaponContainer:CanAttack(targetEntity);
+        }
+        
+        public void Hit(object damageData)
+        {
+          //if damageData.summary != 0  ){ 
+            SendMessage("Hit", damageData);
+          //end
+        }
+        
+        public void Pushed(object damageData){
+        //if damageData.summary != 0  ){ 
+            SendMessage("Pushed", damageData);
+        //end
+        }
+        
+        public void Death()
+        {
+            if (characterClass > 1)
+            { 
+                // mech
+                //GetComponent<Mover>().Stop();
+                isDeath = true;
+                interactable = false;
+                enabled = false;
+                //GameController.player.playerController:DeleteCurrentSlot();
+            }
+            else
+            {
+                //GetComponent<Mecanim>():ForceSetState("Death");
+                isDeath = true;
+                interactable = false;
+                deathTimeout = 5;
+                //GetComponent<Mover>:Stop();
+          }
+        }
+        
+        public void Respawn()
+        {
+            SendMessage("OnRespawn");
+            //SetPosition(GameController.player.homePosition) ;
+            //GameController.worldController:TeleportTargetTransform(this.transform, ;
+            //GameController.player.homePosition.x,;
+            //GameController.player.homePosition.y,;
+            //GameController.player.homePosition.z);
+            //GetComponent<Mecanim>():ForceSetState("Idle");
+            interactable = true;
+            isDeath = false;
+        }
+        
+        public void OnSelectCharacter()
+        {
+            //  GameController.ui.SetupIcon(this.config:Get("cpanel_icon"));
+            //  GameController.ui.SetupAmount(this.health:GetPercentAmount());
+            //  //GameController.ui.UpdateHealth(this.health:GetPercentAmount())
+            Debug.Log("Spell system initialization!");
+            //  GameController.spellSystem:SetupSpells(this.config:Get("spell"));
+            //  //GameController.ui.slotsController:SetContainerSubTag("weapon", this.config:Get("weaponTag"))  
+            interactable = true;
+            enabled = true;
+        }
+
+        public void OnDeselectCharacter()
+        {
+            //GameController.spellSystem:SaveStatuses();
+            interactable = false;
+            this.enabled = false;
+            //if(this.gamepadRightStickController  ){ 
+            //this.gamepadRightStickController:DropTarget();
+            //}  
+        }
+
+        /* FiX ME AFTER SPELL will be defined
+        public void OnSpellCast(Spell spell)
+        {
         //  return this.playerController:OnSpellCast(spell);
-        //}
-        //public void CharacterEntity:OnHealthChanged(){
+        }
+         */
+
+        public void OnHealthChanged()
+        {
         //  GameController.ui.SetupAmount(this.health:GetPercentAmount());
         //  //GameController.ui.UpdateHealth(this.health:GetPercentAmount())
-        //}
-        //public void CharacterEntity:OnCollisionEnter(targetEntity){
-        //}
-        //public void CharacterEntity:SetTimer(name, value)  {
-        //  this.timeManager:Add("TimerHandler", value, name, "extended");
-        //}
-        //public void CharacterEntity:TimerHandler(tResult)    {
+        }
+
+        public void OnCollisionEnter(GameObject targetEntity)
+        {
+        }
+
+        public void SetTimer(string name, float value)  {
+            //GetComponent<TimeManager>():Add("TimerHandler", value, name, "extended");
+        }
+        /*
+        public void TimerHandler(tResult)    {
         //  if(tResult.timeLeft <= 0  ){ 
         //    tResult.complete = true;
         //    GameController.spellSystem:TimerUpdate(this.name, tResult.name, 0)    ;
         //  }else{
         //    GameController.spellSystem:TimerUpdate(this.name, tResult.name, tResult.timeLeft);
         //  }  
-        //}
-        //Entity
+        }
+         */        
     }
 }
