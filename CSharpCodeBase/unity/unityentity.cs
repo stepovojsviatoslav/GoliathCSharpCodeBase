@@ -28,6 +28,10 @@ namespace MainGame {
             this.visibilityTime = 0;
         }
 
+        public void FixedUpdate()
+        {
+        }
+
         //FIXME PLEASE
         public void InitRadiusAndHeight() {
             //var result = {}
